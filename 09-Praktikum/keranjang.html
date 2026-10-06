@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ÁELIÁ Bags - Cart</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; color: #333; margin: 0; padding: 0; }
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        
+        header { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
+        .logo { font-size: 20px; font-weight: 600; }
+        .nav-links a { margin-left: 20px; text-decoration: none; color: #333; font-weight: 500; }
+        .page-title { font-size: 32px; font-weight: 500; margin: 0; }
+        .subtitle { font-size: 14px; color: #666; margin-bottom: 30px; }
+
+        .cart-layout { display: flex; gap: 40px; align-items: flex-start; }
+        .cart-items-container { flex: 2; display: flex; flex-direction: column; gap: 15px; }
+        .order-summary { flex: 1; background: #faf9f7; padding: 30px; border-radius: 16px; min-width: 250px; }
+
+        .cart-item { display: flex; align-items: center; background: #efebe4; padding: 15px 25px; border-radius: 16px; gap: 20px; }
+        .item-img { background: #fff; width: 80px; height: 80px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 40px; }
+        .item-info { flex: 1; }
+        .item-info h4 { margin: 0; font-size: 15px; }
+        .qty-controls { display: flex; align-items: center; gap: 15px; }
+        .btn-qty { background: #e3dec9; border: none; width: 24px; height: 24px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+        .item-price { width: 100px; text-align: right; font-weight: 600; }
+        .item-actions { margin-left: 20px; cursor: pointer; color: #999; }
+
+        /* CSS Ringkasan Belanja */
+        .summary-row { display: flex; justify-content: space-between; font-size: 13px; color: #555; margin-bottom: 15px; }
+        .summary-promo { font-size: 11px; color: #16a34a; background: #dcfce7; padding: 8px; border-radius: 6px; text-align: center; margin-bottom: 15px; }
+        .summary-total { display: flex; justify-content: space-between; font-size: 16px; font-weight: 600; margin: 25px 0; }
+        .btn-checkout { background: #dfd4c5; border: none; width: 100%; padding: 15px; border-radius: 12px; cursor: pointer; font-weight: 600; font-family: inherit;}
+        #cartTotal { text-align: right; }
+        #discountRow { display: none; color: #16a34a; font-weight: 500; }
+
+        /* Tampilan Sukses Checkout */
+        .success-message { text-align: center; width: 100%; padding: 60px 20px; background: #f0fdf4; border: 2px dashed #bbf7d0; border-radius: 16px; color: #166534; }
+        .success-message h2 { font-size: 28px; margin-top: 0; }
+        .success-message p { font-size: 16px; margin: 10px 0; }
+        
+        /* Modal Form Checkout */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; }
+        .modal-content { background: #fff; padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: inherit;}
+        .error-msg { color: #dc2626; font-size: 12px; display: none; }
+        .btn-submit-order { background: #8b5e3c; color: #fff; padding: 12px; width: 100%; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .btn-close { background: transparent; color: #666; padding: 10px; width: 100%; border: none; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo">ÁELIÁ BAGS</div>
+        <div class="nav-links">
+            <a href="#">Catalog</a>
+        </div>
+    </header>
+
+    <h1 class="page-title">Cart</h1>
+    <p class="subtitle" id="productCount">3 Products</p>
+
+    <div class="cart-layout" id="mainCartLayout">
+        <div class="cart-items-container" id="cartList"></div>
+
+        <div class="order-summary">
+            <h3>Your Order</h3>
+            
+            <div class="summary-promo">
+                ✨ Promo: Diskon 10% untuk belanja di atas Rp 100.000!
+            </div>
+
+            <div class="summary-row">
+                <span>Items:</span><span id="totalItems">0</span>
+            </div>
+            
+            <div class="summary-row">
+                <span>Subtotal:</span><span id="cartSubtotal">Rp 0</span>
+            </div>
+
+            <div class="summary-row" id="discountRow">
+                <span>Diskon (10%):</span><span id="discountAmount">- Rp 0</span>
+            </div>
+
+            <div class="summary-total">
+                <span>Total:</span>
+                <span id="cartTotal">Rp 0</span>
+            </div>
+            <button class="btn-checkout" id="btnProsesCheckout">Proceed to Checkout</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modalCheckout">
+    <div class="modal-content">
+        <h3>Data Pengiriman</h3>
+        <form id="formCheckout">
+            <div class="form-group">
+                <input type="text" id="buyerNama" placeholder="Nama Lengkap">
+                <span class="error-msg" id="errBuyerNama">⚠️ Nama harus diisi (min 3 huruf)</span>
+            </div>
+            <div class="form-group">
+                <input type="text" id="buyerHP" placeholder="Nomor Handphone">
+                <span class="error-msg" id="errBuyerHP">⚠️ No. HP harus berupa angka</span>
+            </div>
+            <div class="form-group">
+                <textarea id="buyerAlamat" placeholder="Alamat Lengkap"></textarea>
+                <span class="error-msg" id="errBuyerAlamat">⚠️ Alamat tidak boleh kosong</span>
+            </div>
+            <button type="submit" class="btn-submit-order">Selesaikan Pembayaran</button>
+            <button type="button" class="btn-close" id="btnCloseModal">Batal</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        let cart = [
+            { id: 1, nama: 'Modern Peak', kategori: 'Mini Bags', harga: 140000, qty: 1, img: '👜' },
+            { id: 2, nama: 'Heritage Olive', kategori: 'Medium Bags', harga: 210000, qty: 1, img: '💼' },
+            { id: 3, nama: 'Stream Light', kategori: 'Backpacks', harga: 190000, qty: 1, img: '🎒' }
+        ];
+
+        let globalTotalHarga = 0;
+        let globalTotalQty = 0;
+
+        function updateCartUI() {
+            $('#cartList').empty();
+            globalTotalQty = 0;
+
+            cart.forEach(item => {
+                globalTotalQty += item.qty;
+                $('#cartList').append(`
+                    <div class="cart-item">
+                        <div class="item-img">${item.img}</div>
+                        <div class="item-info"><h4>${item.nama}</h4></div>
+                        <div class="qty-controls">
+                            <button class="btn-qty btn-kurang" data-id="${item.id}">−</button>
+                            <span>${item.qty}</span>
+                            <button class="btn-qty btn-tambah" data-id="${item.id}">+</button>
+                        </div>
+                        <div class="item-price">Rp ${item.harga.toLocaleString('id-ID')}</div>
+                        <div class="item-actions"><span class="btn-hapus" data-id="${item.id}">🗑️</span></div>
+                    </div>
+                `);
+            });
+
+            $('#totalItems').text(globalTotalQty);
+            $('#productCount').text(cart.length + ' Products');
+
+            let totalHarga = cart.reduce((sum, item) => sum + (item.harga * item.qty), 0);
+            $('#cartSubtotal').text(`Rp ${totalHarga.toLocaleString('id-ID')}`);
+            
+            if (totalHarga > 100000) {
+                const diskon = totalHarga * 0.1;
+                totalHarga -= diskon;
+                $('#discountRow').css('display', 'flex');
+                $('#discountAmount').text(`- Rp ${diskon.toLocaleString('id-ID')}`);
+            } else {
+                $('#discountRow').hide();
+            }
+            
+            $('#cartTotal').html(`Rp ${totalHarga.toLocaleString('id-ID')}`);
+            globalTotalHarga = totalHarga;
+        }
+
+        $('#cartList').on('click', '.btn-tambah', function() {
+            let id = $(this).data('id');
+            let item = cart.find(i => i.id === id);
+            if(item) { item.qty += 1; }
+            updateCartUI();
+        });
+
+        $('#cartList').on('click', '.btn-kurang', function() {
+            let id = $(this).data('id');
+            let item = cart.find(i => i.id === id);
+            if (item && item.qty > 0) { item.qty -= 1; }
+            updateCartUI();
+        });
+
+        $('#cartList').on('click', '.btn-hapus', function() {
+            let id = $(this).data('id');
+            cart = cart.filter(i => i.id !== id);
+            updateCartUI();
+        });
+        /*latihan nomor 2*/
+        function simpanRiwayat(total, qty) {
+            const riwayat = JSON.parse(localStorage.getItem('riwayat')) || [];
+            riwayat.push({ tanggal: new Date().toISOString(), total, qty });
+            localStorage.setItem('riwayat', JSON.stringify(riwayat));
+        }
+
+        $('#btnProsesCheckout').click(function() {
+            if (globalTotalQty > 0) {
+                $('#modalCheckout').css('display', 'flex');
+            } else {
+                alert("Keranjang masih kosong atau semua barang berjumlah 0!");
+            }
+        });
+
+        $('#btnCloseModal').click(function() {
+            $('#modalCheckout').hide();
+        });
+
+        $('#formCheckout').submit(function(e) {
+            e.preventDefault();
+            let valid = true;
+
+            let nama = $('#buyerNama').val().trim();
+            let hp = $('#buyerHP').val().trim();
+            let alamat = $('#buyerAlamat').val().trim();
+
+            if (nama.length < 3) { $('#errBuyerNama').show(); valid = false; } else { $('#errBuyerNama').hide(); }
+            if (hp === "" || !$.isNumeric(hp)) { $('#errBuyerHP').show(); valid = false; } else { $('#errBuyerHP').hide(); }
+            if (alamat === "") { $('#errBuyerAlamat').show(); valid = false; } else { $('#errBuyerAlamat').hide(); }
+
+            // JIKA SEMUA DATA VALID
+            if (valid) {
+                // 1. Simpan ke local storage
+                simpanRiwayat(globalTotalHarga, globalTotalQty);
+                
+                // 2. Tutup pop-up modal
+                $('#modalCheckout').hide();
+                
+                // 3. Ubah keterangan subtitle
+                $('#productCount').text('Order Completed');
+                
+                // 4. Ubah tampilan keranjang menjadi layar sukses
+                $('#mainCartLayout').html(`
+                    <div class="success-message">
+                        <h2>🎉 Pemesanan Berhasil!</h2>
+                        <p>Terima kasih, <strong>${nama}</strong>.</p>
+                        <p>Pesanan Anda berhasil tersimpan dan akan segera diproses.</p>
+                        <br>
+                        <p style="font-size:14px; font-weight:600;">Total Dibayar: Rp ${globalTotalHarga.toLocaleString('id-ID')}</p>
+                        <p style="font-size:12px; color:#15803d; margin-top:20px;">*Tanda terima telah disimpan di sistem kami.</p>
+                    </div>
+                `);
+            }
+        });
+
+        updateCartUI();
+    });
+</script>
+
+</body>
+</html>
