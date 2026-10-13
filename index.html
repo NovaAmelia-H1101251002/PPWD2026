@@ -4,125 +4,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ÁELIÁ Beauty - Your favorite makeup</title>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Website Profile Interaktif</title>
+
+    <!-- Instalasi jQuery via CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <!-- Memuat Font Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4efe9;
+            color: #333;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            background: #fff;
+            padding: 30px;
+            border: 1px solid #e5d9c5;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .profile-section {
+            flex: 1;
+            min-width: 250px;
+            text-align: left;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            background-color: #8b5e3c;
+            color: #fff;
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .profile-section h2 {
+            margin: 0;
+            color: #5c3a21;
+        }
+
+        .profile-section .role {
+            color: #6b7280;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        .profile-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+            color: #374151;
+        }
+
+        .profile-section li {
+            margin-bottom: 8px;
+        }
+
+        
+        .contact-section {
+            flex: 1.5;
+            min-width: 300px;
+        }
+
+        .contact-section h3 {
+            margin-top: 0;
+            color: #8b5e3c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #8b5e3c;
+            outline: none;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        button {
+            background-color: #8b5e3c;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #704a2e;
+        }
+
+        .error-msg {
+            color: #dc2626;
+            font-size: 12px;
+            display: none;
+            margin-top: 5px;
+        }
+
+        .success-msg {
+            color: #16a34a;
+            background-color: #dcfce7;
+            border: 1px solid #bbf7d0;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 15px;
+            display: none;
+            text-align: center;
+        }
+        .edit-box {
+            display: none;
+            background: #fdfaf6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #e5d9c5;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo"><i class="fas fa-wand-magic-sparkles"></i><span>ÁELIÁ Beauty</span></div>
-            <div class="nav-menu" id="navMenu">
-                <a class="nav-link active" data-filter="all">Semua</a>
-                <a class="nav-link" data-filter="lip-product">Lip Product</a>
-                <a class="nav-link" data-filter="complexion">Complexion</a>
-                <a class="nav-link" data-filter="makeup-remover">Makeup Remover</a>
-                <a class="nav-link" data-filter="blush-on">Blush On</a>
-            </div>
-            <div class="cart-btn" id="cartBtn">
-                <i class="fas fa-shopping-cart"></i><span class="cart-text">Keranjang</span>
-                <span class="cart-badge" id="cartBadge">0</span>
-            </div>
-            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
-        </div>
-    </nav>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Selamat Datang di <span>ÁELIÁ Beauty</span> 💄</h1>
-            <p>Temukan lip product, complexion, makeup remover, dan blush on favoritmu!</p>
-            <div class="search-box">
-                <input type="text" id="searchProduk" placeholder="Cari produk favoritmu...">
-                <i class="fas fa-search"></i>
-            </div>
-        </div>
-    </section>
+    <div class="container" id="mainContainer">
 
-    <!-- PRODUK -->
-    <section class="produk-section">
-        <div class="section-header">
-            <h2><i class="fas fa-list"></i> Produk Kami</h2>
-            <div class="filter-btns">
-                <button class="filter-btn active" data-cat="all">Semua</button>
-                <button class="filter-btn" data-cat="lip-product">Lip Product</button>
-                <button class="filter-btn" data-cat="complexion">Complexion</button>
-                <button class="filter-btn" data-cat="makeup-remover">Makeup Remover</button>
-                <button class="filter-btn" data-cat="blush-on">Blush On</button>
-            </div>
-        </div>
-        <div class="produk-grid" id="produkGrid"></div>
-    </section>
+        <!-- Kolom Profil -->
+        <div class="profile-section">
+            <div class="avatar">🦭</div>
+            <h2 id="profName">Nova Amelia</h2>
+            <p class="role" id="profRole">Information System Student</p>
+            <ul>
+                <li>📍 <span id="profLoc">Pontianak, Indonesia</span></li>
+                <li>✉ <span id="profEmail">novaamelia2970@gmail.com</span></li>
+            </ul>
+            <button id="btnUbah">🔄 Ubah Profil</button>
 
-    <!-- CART SIDEBAR -->
-    <div class="cart-overlay" id="cartOverlay"></div>
-    <aside class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3><i class="fas fa-shopping-bag"></i> Keranjang Belanja</h3>
-            <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="cart-items" id="cartItems"></div>
-        <div class="cart-footer">
-            <div class="diskon-info" id="diskonInfo"></div>
-            <div class="cart-total">
-                <span>Total:</span>
-                <span class="total-price" id="cartTotal">Rp 0</span>
+            <!-- Panel Edit Tersembunyi -->
+            <div class="edit-box" id="editPanel">
+                <input type="text" id="inputEditNama" value="Nova Amelia" style="margin-bottom:10px;">
+                <input type="text" id="inputEditEmail" value="novaamelia2970@gmail.com" style="margin-bottom:10px;">
+                <button id="btnSimpan" style="padding: 6px 12px; font-size: 12px;">Simpan</button>
             </div>
-            <button class="btn-checkout" id="btnCheckout"><i class="fas fa-check-circle"></i> Checkout Sekarang</button>
         </div>
-    </aside>
 
-    <!-- MODAL FORM PEMBELI (Latihan 3) -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal" role="dialog" aria-modal="true">
-            <div class="modal-header">
-                <h3><i class="fas fa-user-edit"></i> Data Pembeli</h3>
-                <button class="cart-close" id="modalClose" type="button"><i class="fas fa-times"></i></button>
-            </div>
-            <form id="formPembeli" novalidate>
-                <div class="modal-body">
-                    <div class="ringkasan" id="ringkasanPesanan"></div>
-                    <div class="form-group">
-                        <label for="inputNama">Nama Lengkap</label>
-                        <input type="text" id="inputNama" placeholder="Contoh: Nova  Amelia">
-                        <span class="error-msg" id="errNama"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputAlamat">Alamat Pengiriman</label>
-                        <textarea id="inputAlamat" rows="3" placeholder="Jl. Kota Baru No. 25, Pontianak"></textarea>
-                        <span class="error-msg" id="errAlamat"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputHp">No. HP</label>
-                        <input type="tel" id="inputHp" placeholder="08xxxxxxxxxx">
-                        <span class="error-msg" id="errHp"></span>
-                    </div>
+        <!-- Kolom Kontak -->
+        <div class="contact-section">
+            <h3>💬 Tinggalkan Pesan</h3>
+            <form id="formKontak">
+
+                <div class="form-group">
+                    <input type="text" id="nama" placeholder="Nama Anda">
+                    <span class="error-msg" id="errNama">⚠️ Masukkan nama minimal 3 karakter</span>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn-checkout" id="btnKonfirmasi"><i class="fas fa-check-circle"></i>
-                        Konfirmasi Pesanan</button>
+
+                <div class="form-group">
+                    <input type="text" id="email" placeholder="Email Anda">
+                    <span class="error-msg" id="errEmail">⚠️ Email tidak valid</span>
                 </div>
+
+                <div class="form-group">
+                    <textarea id="pesan" placeholder="Tulis pesan minimal 10 karakter..."></textarea>
+                    <span class="error-msg" id="errPesan">⚠️ Pesan minimal 10 karakter</span>
+                </div>
+
+                <button type="submit">🚀 Kirim</button>
             </form>
+
+            <div class="success-msg" id="msgSukses">✔️ Pesan berhasil dikirim!</div>
         </div>
+
     </div>
 
-    <!-- TOAST -->
-    <div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg">Produk ditambahkan!</span>
-    </div>
+    <script>
+        $(document).ready(function () {
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p><strong>ÁELIÁ Beauty</strong> © 2026</p>
-        <p>Praktikum Pemrograman Web Dasar (Nova Amelia) · Prodi Sistem Informasi</p>
-    </footer>
+            $("#mainContainer").hover(
+                function () { $(this).css("box-shadow", "0 10px 25px rgba(139, 94, 60, 0.15)"); },
+                function () { $(this).css("box-shadow", "none"); }
+            );
+            $("#btnUbah").click(function () {
+                $("#editPanel").slideToggle();
 
-    <script src="script.js"></script>
+                if ($(this).text() === "🔄 Ubah Profil") {
+                    $(this).text("Tutup Edit");
+                } else {
+                    $(this).text("🔄 Ubah Profil");
+                }
+            });
+
+            // Menyimpan data profil
+            $("#btnSimpan").click(function () {
+                let namaBaru = $("#inputEditNama").val().trim();
+                let emailBaru = $("#inputEditEmail").val().trim();
+
+                if (namaBaru !== "") {
+                    // Mengubah nama
+                    $("#profName").html("<strong>" + namaBaru + "</strong>");
+
+                    // Mengubah email
+                    if (emailBaru !== "") {
+                        $("#profEmail").text(emailBaru);
+                    }
+
+                    // Menutup panel edit dan mengembalikan teks tombol
+                    $("#editPanel").slideToggle();
+                    $("#btnUbah").text("🔄 Ubah Profil");
+                }
+            });
+
+            $("#formKontak").submit(function (e) {
+                e.preventDefault();
+
+                let valid = true;
+
+                let nama = $("#nama").val().trim();
+                let email = $("#email").val().trim();
+                let pesan = $("#pesan").val().trim();
+
+                if (nama.length < 3) {
+                    $("#errNama").show();
+                    valid = false;
+                } else {
+                    $("#errNama").hide();
+                }
+
+                if (email.indexOf("@") === -1 || email.indexOf(".") === -1) {
+                    $("#errEmail").show();
+                    valid = false;
+                } else {
+                    $("#errEmail").hide();
+                }
+
+                if (pesan.length < 10) {
+                    $("#errPesan").show();
+                    valid = false;
+                } else {
+                    $("#errPesan").hide();
+                }
+                
+                if (valid) {
+                    // Menampilkan pesan sukses
+                    $("#msgSukses").fadeIn(400).delay(3000).fadeOut(400);
+
+                    // Mengosongkan form
+                    $("#formKontak").trigger("reset");
+                }
+            });
+
+        });
+    </script>
+
 </body>
 
 </html>
