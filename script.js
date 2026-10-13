@@ -158,7 +158,7 @@ $(document).ready(function () {
         <div class="cart-empty">
           <i class="fas fa-shopping-cart"></i>
           <p>Keranjang masih kosong</p>
-          <small>Yuk pilih produk favoritmu dulu!</small>
+          <small>Ayo pilih produk favoritmu dulu!</small>
         </div>`);
             return;
         }
