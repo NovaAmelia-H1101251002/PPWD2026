@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aelia Rosette — Dessert Shop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container nav-inner">
+            <a href="#beranda" class="logo">Aelia Rosette</a>
+            <button class="nav-toggle" type="button" aria-label="Buka menu">☰</button>
+            <ul class="nav-list">
+                <li><a href="#beranda">Beranda</a></li>
+                <li class="dropdown">
+                    <button class="dropdown-btn" type="button">Menu ▾</button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#menu" data-tab="#tab-cheesecake">Cheesecake</a></li>
+                        <li><a href="#menu" data-tab="#tab-cake">Cake</a></li>
+                        <li><a href="#menu" data-tab="#tab-pastry">Pastry</a></li>
+                    </ul>
+                </li>
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#preorder" class="nav-cta">Pre-Order</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="beranda" class="hero">
+        <div class="container hero-inner">
+            <div class="hero-text">
+                <h1>Manis yang dibuat dengan lembut.</h1>
+                <p>Cheesecake lembut, London cake berlapis, dan pastry segar dari oven kami setiap pagi. Pesan sehari
+                    sebelumnya, ambil saat masih istimewa.</p>
+                <a href="#menu" class="btn btn-cream">Lihat Menu</a>
+                <a href="#preorder" class="btn btn-outline">Pre-Order</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MENU + TABS -->
+    <section id="menu" class="section">
+        <div class="container">
+            <h2 class="section-title">Menu Kami</h2>
+            <p class="section-sub">Dibuat harian dalam jumlah terbatas.</p>
+
+            <div class="tabs" role="tablist">
+                <button class="tab active" type="button" role="tab" data-target="#tab-cheesecake">Cheesecake</button>
+                <button class="tab" type="button" role="tab" data-target="#tab-cake">Cake</button>
+                <button class="tab" type="button" role="tab" data-target="#tab-pastry">Pastry</button>
+            </div>
+
+            <div id="tab-cheesecake" class="tab-panel menu-grid">
+                <article class="menu-card">
+                    <div class="card-body">
+                        <h3>New York Cheesecake</h3>
+                        <p>Krim keju padat dan lembut di atas dasar biskuit mentega.</p>
+                        <div class="card-foot"><span class="price">Rp 38.000</span><button class="btn-pesan"
+                                type="button" data-nama="New York Cheesecake">Pesan</button></div>
+                    </div>
+                </article>
+                <article class="menu-card">
+                    <div class="card-body">
+                        <h3>Basque Burnt Cheesecake</h3>
+                        <p>Permukaan karamel gosong, bagian dalam creamy dan lumer.</p>
+                        <div class="card-foot"><span class="price">Rp 42.000</span><button class="btn-pesan"
+                                type="button" data-nama="Basque Burnt Cheesecake">Pesan</button></div>
+                    </div>
+                </article>
+            </div>
+
+            <div id="tab-cake" class="tab-panel menu-grid">
+                <article class="menu-card">
+                    <div class="card-body">
+                        <h3>London Cake</h3>
+                        <p>Sponge vanila lembut dengan lapisan krim dan taburan almond.</p>
+                        <div class="card-foot"><span class="price">Rp 35.000</span><button class="btn-pesan"
+                                type="button" data-nama="London Cake">Pesan</button></div>
+                    </div>
+                </article>
+                <article class="menu-card">
+                    <div class="card-body">
+                        <h3>Red Velvet Cake</h3>
+                        <p>Cokelat ringan berwarna merah tua dengan cream cheese frosting.</p>
+                        <div class="card-foot"><span class="price">Rp 36.000</span><button class="btn-pesan"
+                                type="button" data-nama="Red Velvet Cake">Pesan</button></div>
+                    </div>
+                </article>
+            </div>
+
+            <div id="tab-pastry" class="tab-panel menu-grid">
+                <article class="menu-card">
+                    <div class="card-body">
+                        <h3>Almond Croissant</h3>
+                        <p>Croissant berlapis renyah dengan isian frangipane almond.</p>
+                        <div class="card-foot"><span class="price">Rp 28.000</span><button class="btn-pesan"
+                                type="button" data-nama="Almond Croissant">Pesan</button></div>
+                    </div>
+                </article>
+                <article class="menu-card">
+                    <div class="card-body">
+                        <h3>Éclair Cokelat</h3>
+                        <p>Choux ringan berisi custard vanila, dilapisi ganache cokelat.</p>
+                        <div class="card-foot"><span class="price">Rp 25.000</span><button class="btn-pesan"
+                                type="button" data-nama="Éclair Cokelat">Pesan</button></div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- TENTANG -->
+    <section id="tentang" class="section section-maroon">
+        <div class="container about-grid">
+            <div>
+                <h2 class="section-title">Tentang Aelia Rosette</h2>
+                <p>Aelia Rosette lahir dari dapur rumahan dengan satu keyakinan: dessert yang baik tidak perlu
+                    terburu-buru. Setiap kue dipanggang dalam batch kecil, memakai mentega asli, krim keju pilihan, dan
+                    buah musiman.</p>
+                <p>Karena itu kami menerima pre-order. Kuenya dibuat sesuai tanggal ambil Anda, jadi selalu segar dan
+                    tidak ada yang terbuang.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ ACCORDION -->
+    <section id="faq" class="section">
+        <div class="container narrow">
+            <h2 class="section-title">Pertanyaan Umum</h2>
+            <div class="faq-item">
+                <button class="faq-q" type="button">Berapa lama pre-order harus dilakukan?</button>
+                <div class="faq-a">
+                    <p>Minimal satu hari sebelum tanggal ambil. Untuk pesanan lebih dari 10 potong, mohon pesan 3 hari
+                        sebelumnya.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" type="button">Apakah bisa menambah ucapan di kue?</button>
+                <div class="faq-a">
+                    <p>Bisa. Tulis ucapan singkat (maksimal 80 karakter) di kolom catatan pada formulir pre-order.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" type="button">Bagaimana cara menyimpan kue?</button>
+                <div class="faq-a">
+                    <p>Simpan di kulkas dan habiskan dalam 3 hari. Keluarkan 10 menit sebelum disajikan agar teksturnya
+                        optimal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FORM PRE-ORDER (jQuery Validation Plugin) -->
+    <section id="preorder" class="section section-blush">
+        <div class="container">
+            <h2 class="section-title">Pre-Order</h2>
+            <p class="section-sub">Isi formulir di bawah, kami akan konfirmasi lewat WhatsApp.</p>
+
+            <form id="formPreorder" class="form-box" novalidate>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fNama">Nama lengkap</label>
+                        <input type="text" id="fNama" name="nama" placeholder="Nama pemesan">
+                    </div>
+                    <div class="form-group">
+                        <label for="fEmail">Email</label>
+                        <input type="text" id="fEmail" name="email" placeholder="nama@email.com">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fHp">Nomor WhatsApp</label>
+                        <input type="text" id="fHp" name="hp" placeholder="08xxxxxxxxxx">
+                    </div>
+                    <div class="form-group">
+                        <label for="fTanggal">Tanggal ambil</label>
+                        <input type="date" id="fTanggal" name="tanggal">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fMenu">Pilih dessert</label>
+                        <select id="fMenu" name="menu">
+                            <option value="">Pilih salah satu</option>
+                            <option>New York Cheesecake</option>
+                            <option>Basque Burnt Cheesecake</option>
+                            <option>London Cake</option>
+                            <option>Red Velvet Cake</option>
+                            <option>Almond Croissant</option>
+                            <option>Éclair Cokelat</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fJumlah">Jumlah (potong)</label>
+                        <input type="number" id="fJumlah" name="jumlah" value="1" min="1" max="20">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <span class="label">Metode pengambilan</span>
+                    <div class="radio-group">
+                        <label class="inline"><input type="radio" name="metode" value="Ambil di toko"> Ambil di
+                            toko</label>
+                        <label class="inline"><input type="radio" name="metode" value="Diantar"> Diantar</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fCatatan">Ucapan di kue <small>(opsional, <span id="hitung">0</span>/80)</small></label>
+                    <textarea id="fCatatan" name="catatan" rows="2"
+                        placeholder="Contoh: Selamat ulang tahun, Rani!"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="inline"><input type="checkbox" name="setuju" value="ya"> Saya mengerti pesanan dibuat
+                        sesuai tanggal ambil dan tidak dapat dibatalkan H-1.</label>
+                </div>
+
+                <button type="submit" class="btn btn-maroon btn-block">Kirim Pre-Order</button>
+                <div class="sukses" id="sukses"><strong>Pre-order diterima.</strong> Kami akan menghubungi Anda lewat
+                    WhatsApp untuk konfirmasi.</div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-brand">Aelia Rosette</p>
+            <p>Jl.Gajahmada No. 25 · Buka setiap hari, 09.00–20.00</p>
+            <p class="copy">&copy; 2026 Aelia Rosette. Tugas Mandiri Praktikum Pemrograman Web Dasar, Minggu 11 &amp;
+.</p>
+        </div>
+    </footer>
+
+    <div id="toast" role="status"></div>
+    <button id="backToTop" type="button" aria-label="Kembali ke atas">&#8593;</button>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
