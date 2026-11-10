@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Kalkulator BMI Aesthetic</title>
+        <style>
+            body {
+                font-family: system-ui, -apple-system, sans-serif; 
+                background: linear-gradient(135deg, #FBF8E0 0%, #FFBC92 100%);
+                min-height: 100vh;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .wadah {
+                background: rgba(255, 255, 255, 0.4); 
+                backdrop-filter: blur(12px);
+                padding: 40px; 
+                border-radius: 24px;
+                box-shadow: 0 10px 30px rgba(213, 117, 48, 0.15); 
+                text-align: center;
+                width: 320px;
+                border: 1px solid rgba(255, 255, 255, 0.6);
+            }
+            h2 {
+                margin-top: 0; 
+                color: #D57530; 
+                font-weight: 800;
+            }
+            input {
+                padding: 15px; 
+                margin-bottom: 15px; 
+                font-size: 16px; 
+                width: 100%; 
+                border: none; 
+                border-radius: 16px;
+                box-sizing: border-box;
+                outline: none;
+                background: rgba(255, 255, 255, 0.7);
+                color: #D57530;
+                font-weight: bold;
+            }
+            /* Mengubah warna teks panduan dalam input */
+            input::placeholder {
+                color: #e09b6c;
+                font-weight: normal;
+            }
+            button { 
+                padding: 12px 20px; 
+                margin: 5px; 
+                font-size: 15px; 
+                font-weight: bold;
+                border: none; 
+                border-radius: 12px; 
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .btn-cek {
+                background: #D57530; 
+                color: white; 
+                width: 55%;
+            }
+            .btn-reset {
+                background: rgba(255, 255, 255, 0.5); 
+                color: #D57530; 
+                border: 2px solid #D57530; 
+                width: 35%;
+            }
+            button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(213, 117, 48, 0.3);
+            }
+            .hasil {
+                font-size: 18px; 
+                font-weight: bold; 
+                color: #8c5a3c; 
+                margin-top: 25px;
+            }
+            .angka-bmi {
+                font-size: 45px;
+                color: #D57530; 
+                display: block;
+                margin-top: 5px;
+                margin-bottom: 10px;
+            }
+            /* Desain badge untuk status BMI */
+            .status-bmi {
+                font-size: 18px;
+                color: white;
+                background: #D57530;
+                padding: 6px 18px;
+                border-radius: 20px;
+                display: none; /* Disembunyikan dulu sampai tombol ditekan */
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="wadah">
+            <h2>Kalkulator BMI</h2>
+
+            <!-- 2 Form Input sesuai spesifikasi -->
+            <input type="number" id="berat" placeholder="Berat Badan (kg)">
+            <input type="number" id="tinggi" placeholder="Tinggi Badan (cm)">
+
+            <div>
+                <!-- Tombol Eksekusi -->
+                <button class="btn-cek" onclick="hitungBMI()">Hitung BMI</button>
+                <button class="btn-reset" onclick="reset()">Reset</button>
+            </div>
+
+            <div class="hasil">
+                Skor BMI Kamu:<br> 
+                <span id="hasilAngka" class="angka-bmi">-</span>
+                <span id="hasilStatus" class="status-bmi">-</span>
+            </div>
+        </div>
+
+        <script>
+            function hitungBMI() {
+                // Mengambil nilai input
+                let berat = parseFloat(document.getElementById('berat').value);
+                let tinggiCm = parseFloat(document.getElementById('tinggi').value);
+
+                // Validasi data tidak boleh kosong
+                if (isNaN(berat) || isNaN(tinggiCm) || berat <= 0 || tinggiCm <= 0) {
+                    alert('Ups! Masukkan berat dan tinggi yang benar dulu ya ✌️');
+                    return;
+                }
+
+                // 1. Ubah cm ke meter
+                let tinggiM = tinggiCm / 100;
+
+                // 2. Rumus dasar BMI
+                let bmi = berat / (tinggiM * tinggiM);
+                let status = "";
+
+                // 3. Percabangan kriteria BMI
+                if (bmi < 18.5) {
+                    status = "Kurus";
+                } else if (bmi >= 18.5 && bmi <= 24.9) {
+                    status = "Normal";
+                } else if (bmi >= 25.0 && bmi <= 29.9) {
+                    status = "Gemuk";
+                } else {
+                    status = "Obesitas"; // BMI 30 ke atas
+                }
+
+                // 4. Cetak Hasil
+                document.getElementById('hasilAngka').innerHTML = bmi.toFixed(1); // toFixed(1) agar angka tidak kepanjangan (1 angka di belakang koma)
+                
+                // Menampilkan badge status
+                let elStatus = document.getElementById('hasilStatus');
+                elStatus.innerHTML = status;
+                elStatus.style.display = "inline-block"; 
+            }
+
+            function reset() {
+                // Mengosongkan form dan reset tampilan
+                document.getElementById('berat').value = '';
+                document.getElementById('tinggi').value = '';
+                document.getElementById('hasilAngka').innerHTML = '-';
+                
+                let elStatus = document.getElementById('hasilStatus');
+                elStatus.innerHTML = '-';
+                elStatus.style.display = "none";
+            }
+        </script>
+    </body>
+</html>

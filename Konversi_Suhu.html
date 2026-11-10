@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Konversi Suhu</title>
+        <style>
+            body {
+                font-family: system-ui, -apple-system, sans-serif; 
+                background: linear-gradient(135deg, #FBF8E0 0%, #FFBC92 100%);
+                min-height: 100vh;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .wadah {
+                background: rgba(255, 255, 255, 0.4); 
+                backdrop-filter: blur(12px);
+                padding: 40px; 
+                border-radius: 24px;
+                box-shadow: 0 10px 30px rgba(213, 117, 48, 0.15); 
+                text-align: center;
+                width: 320px;
+                border: 1px solid rgba(255, 255, 255, 0.6);
+            }
+            h2 {
+                margin-top: 0; 
+                color: #D57530; 
+                font-weight: 800;
+            }
+            input {
+                padding: 15px; 
+                margin-bottom: 15px; 
+                font-size: 16px; 
+                width: 100%; 
+                border: none; 
+                border-radius: 16px;
+                box-sizing: border-box;
+                outline: none;
+                background: rgba(255, 255, 255, 0.7);
+                color: #D57530;
+                font-weight: bold;
+            }
+            input::placeholder {
+                color: #e09b6c;
+                font-weight: normal;
+            }
+            button { 
+                padding: 12px 20px; 
+                margin: 5px; 
+                font-size: 15px; 
+                font-weight: bold;
+                border: none; 
+                border-radius: 12px; 
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .btn-cek {
+                background: #D57530; 
+                color: white; 
+                width: 55%;
+            }
+            .btn-reset {
+                background: rgba(255, 255, 255, 0.5); 
+                color: #D57530; 
+                border: 2px solid #D57530; 
+                width: 35%;
+            }
+            button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(213, 117, 48, 0.3);
+            }
+            .hasil-box {
+                margin-top: 25px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .badge-hasil {
+                background: rgba(255, 255, 255, 0.6);
+                padding: 12px 16px;
+                border-radius: 16px;
+                color: #8c5a3c;
+                font-weight: bold;
+                font-size: 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .nilai-temp {
+                color: #D57530;
+                font-size: 18px;
+                font-weight: 800;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="wadah">
+            <h2> Konversi Suhu </h2>
+
+            <!-- Input Suhu Celcius -->
+            <input type="number" id="celcius" placeholder="Masukkan Celcius (°C)">
+
+            <div>
+                <!-- Tombol Konversi -->
+                <button class="btn-cek" onclick="konversi()">Konversi</button>
+                <button class="btn-reset" onclick="reset()">Reset</button>
+            </div>
+
+            <!-- Tampilan Hasil Konversi -->
+            <div class="hasil-box">
+                <div class="badge-hasil">
+                    <span>Fahrenheit:</span>
+                    <span id="hasilFahrenheit" class="nilai-temp">-</span>
+                </div>
+                <div class="badge-hasil">
+                    <span>Kelvin:</span>
+                    <span id="hasilKelvin" class="nilai-temp">-</span>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function konversi() {
+                let input = document.getElementById('celcius').value;
+
+                // Validasi: input tidak boleh kosong dan harus berupa angka
+                if (input.trim() === '' || isNaN(input)) {
+                    alert('Ups! Input tidak boleh kosong dan harus berupa angka ✌️');
+                    return;
+                }
+
+                let c = parseFloat(input);
+
+                // Rumus Konversi
+                let fahrenheit = (c * 9 / 5) + 32;
+                let kelvin = c + 273.15;
+
+                // Menampilkan Hasil
+                document.getElementById('hasilFahrenheit').innerHTML = fahrenheit.toFixed(2) + " °F";
+                document.getElementById('hasilKelvin').innerHTML = kelvin.toFixed(2) + " K";
+            }
+
+            function reset() {
+                document.getElementById('celcius').value = '';
+                document.getElementById('hasilFahrenheit').innerHTML = '-';
+                document.getElementById('hasilKelvin').innerHTML = '-';
+            }
+        </script>
+    </body>
+</html>

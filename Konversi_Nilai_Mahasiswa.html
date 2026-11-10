@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Konversi Nilai</title>
+        <style>
+            body {
+                font-family: system-ui, -apple-system, sans-serif; 
+                /* Menggunakan warna FBF8E0 dan FFBC92 untuk background gradient */
+                background: linear-gradient(135deg, #FBF8E0 0%, #FFBC92 100%);
+                min-height: 100vh;
+                margin: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .wadah {
+                background: rgba(255, 255, 255, 0.4); 
+                backdrop-filter: blur(12px);
+                padding: 40px; 
+                border-radius: 24px;
+                box-shadow: 0 10px 30px rgba(213, 117, 48, 0.15); /* Shadow dengan nuansa warna utama */
+                text-align: center;
+                width: 300px;
+                border: 1px solid rgba(255, 255, 255, 0.6);
+            }
+            h2 {
+                margin-top: 0; 
+                color: #D57530; /* Warna utama D57530 */
+                font-weight: 800;
+            }
+            input {
+                padding: 15px; 
+                margin-bottom: 20px; 
+                font-size: 16px; 
+                width: 100%; 
+                border: none; 
+                border-radius: 16px;
+                box-sizing: border-box;
+                outline: none;
+                background: rgba(255, 255, 255, 0.7);
+                color: #D57530;
+                font-weight: bold;
+            }
+            button { 
+                padding: 12px 20px; 
+                margin: 5px; 
+                font-size: 15px; 
+                font-weight: bold;
+                border: none; 
+                border-radius: 12px; 
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .btn-cek {
+                background: #D57530; /* Warna utama D57530 */
+                color: white; 
+                width: 55%;
+            }
+            .btn-reset {
+                background: rgba(255, 255, 255, 0.5); 
+                color: #D57530; 
+                border: 2px solid #D57530; /* Warna utama D57530 */
+                width: 35%;
+            }
+            button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(213, 117, 48, 0.3);
+            }
+            .hasil {
+                font-size: 20px; 
+                font-weight: bold; 
+                color: #8c5a3c; /* Warna kecoklatan agar senada */
+                margin-top: 30px;
+            }
+            #hasilGrade {
+                font-size: 45px;
+                color: #D57530; /* Warna utama D57530 */
+                display: block;
+                margin-top: 5px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="wadah">
+            <h2>Cek Nilai (A-E)</h2>
+
+            <input type="number" id="nilaiMhs" placeholder="Masukkan Nilai (0 - 100)">
+
+            <div>
+                <button class="btn-cek" onclick="konversi()">Cek Nilai</button>
+                <button class="btn-reset" onclick="reset()">Reset</button>
+            </div>
+
+            <div class="hasil">Grade Kamu:<br> <span id="hasilGrade">-</span></div>
+        </div>
+
+        <script>
+            function konversi() {
+                let nilai = parseFloat(document.getElementById('nilaiMhs').value);
+                let grade = "";
+
+                if (isNaN(nilai)) {
+                    alert('Ups! Masukkan angkanya dulu ya ✌️');
+                    return;
+                }
+
+                // Percabangan if - else if - else
+                if (nilai >= 90 && nilai <= 100) {
+                    grade = "A";
+                } else if (nilai >= 80 && nilai <= 89) {
+                    grade = "B";
+                } else if (nilai >= 70 && nilai <= 79) {
+                    grade = "C";
+                } else if (nilai >= 60 && nilai <= 69) {
+                    grade = "D";
+                } else if (nilai >= 0 && nilai < 60) {
+                    grade = "E";
+                } else {
+                    grade = "Invalid"; 
+                }
+
+                document.getElementById('hasilGrade').innerHTML = grade;
+            }
+
+            function reset() {
+                document.getElementById('nilaiMhs').value = '';
+                document.getElementById('hasilGrade').innerHTML = '-';
+            }
+        </script>
+    </body>
+</html>

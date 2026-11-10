@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cek Ganjil Genap</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif; 
+                max-width: 400px; 
+                margin: 50px auto;
+                padding: 20px; 
+                background: #2a445b;
+            }
+            .container {
+                background: white; 
+                padding: 30px; 
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+                text-align: center;
+            }
+            input {
+                padding: 10px; 
+                margin: 5px; 
+                font-size: 16px; 
+                width: 80%; 
+                box-sizing: border-box;
+                text-align: center;
+            }
+            button { 
+                padding: 10px 20px; 
+                margin-top: 15px; 
+                font-size: 16px; 
+                background: #57537e; 
+                color: white;
+                border: none; 
+                border-radius: 5px; 
+                cursor: pointer;
+            }
+            button:hover {
+                background: #3f3c5b; 
+            }
+            .hasil {
+                font-size: 28px; 
+                font-weight: bold; 
+                color: #2c3e50; 
+                margin-top: 25px;
+                min-height: 35px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Cek Ganjil Genap</h2>
+
+            <!-- Input hanya satu, saat diketik langsung memanggil fungsi -->
+            <input type="number" id="angka" placeholder="Masukkan Angka" oninput="cekGanjilGenap()">
+
+            <!-- Tempat hasil dimunculkan -->
+            <div id="infoHasil" class="hasil">-</div>
+
+            <button onclick="reset()">Reset</button>
+        </div>
+
+        <script>
+            function cekGanjilGenap() {
+                let nilai = document.getElementById('angka').value;
+                let info = document.getElementById('infoHasil');
+                
+                // Jika input dikosongkan, kembalikan ke tanda strip
+                if (nilai === "") {
+                    info.innerHTML = "-";
+                    info.style.color = "#2c3e50";
+                    return;
+                }
+                
+                let angka = parseFloat(nilai);
+                
+                // Cek ganjil genap menggunakan modulus (%)
+                if (angka % 2 === 0) {
+                    info.innerHTML = "GENAP";
+                    info.style.color = "#27ae60"; // Warna hijau
+                } else if (angka % 2 !== 0 && Number.isInteger(angka)) {
+                    info.innerHTML = "GANJIL";
+                    info.style.color = "#e74c3c"; // Warna merah
+                } else {
+                    info.innerHTML = "DESIMAL";
+                    info.style.color = "#f39c12"; // Warna oranye jika bukan bilangan bulat
+                }
+            }
+
+            function reset() {
+                document.getElementById('angka').value = '';
+                let info = document.getElementById('infoHasil');
+                info.innerHTML = '-';
+                info.style.color = '#2c3e50';
+            }
+        </script>
+    </body>
+</html>
