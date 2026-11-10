@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #ec9f9f 2%, #d9d8d0 30%);
+    color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+}
+
+/* Container utama dibagi jadi 2 kolom (Kiri Teks, Kanan Foto) */
+.container {
+    display: flex;
+    max-width: 900px;
+    width: 100%;
+    align-items: center;
+    gap: 40px;
+}
+
+/* --- STYLING KOLOM KIRI (TEKS) --- */
+.kolom-kiri {
+    flex: 1;
+}
+
+.hello-badge {
+    background-color: #613c4e;
+    color: #ffffff;
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 25px;
+    letter-spacing: -2px;
+}
+
+.kolom-kiri p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* --- STYLING KOLOM KANAN (FOTO & TULISAN TANGAN) --- */
+.kolom-kanan {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+/* Susunan foto memanjang ke bawah (Filmstrip) */
+.filmstrip {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 220px;
+}
+
+.filmstrip img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    /* ukuran foto potret */
+    object-fit: cover;
+    filter: grayscale(100%);
+    /* Otomatis buat foto jadi Hitam Putih! */
+}
+
+/* Tulisan tangan melayang di tengan antara foto tulisan */
+.tulisan-tangan {
+    position: absolute;
+    font-family: 'Caveat', cursive;
+    font-size: 7rem;
+    color: #613c4e;
+    line-height: 0.8;
+    top: 50%;
+    left: -40px;
+    /* Menarik teks ke arah kiri agar sesuai tulisan & foto */
+    transform: translateY(-50%) rotate(-8deg);
+    /* Efek miring */
+    z-index: 10;
+}
