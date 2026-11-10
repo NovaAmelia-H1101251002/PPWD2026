@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buku Tamu Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== Bagian atas (sama dengan portal) ===== -->
+    <header class="header">
+        <h2 class="logo">Nova Amelia</h2>
+        <button id="tombol-tema">Mode gelap</button>
+    </header>
+
+    <main class="isi">
+        <!-- ../ artinya "naik satu folder", lalu buka index.html utama -->
+        <a class="kembali" href="../index.html">&larr; Kembali ke portofolio</a>
+
+        <section class="perkenalan">
+            <span class="label">Proyek</span>
+            <h1>Buku Tamu Digital</h1>
+            <p>Formulir pencatatan tamu kantor.</p>
+        </section>
+
+        <section class="panel">
+            <h3>Isi data tamu</h3>
+            <label for="nama">Nama lengkap</label>
+            <input id="nama" placeholder="Nama lengkap">
+            <p class="pesan-error" id="error-nama">Nama wajib diisi.</p>
+
+            <label for="instansi">Instansi</label>
+            <input id="instansi" placeholder="Instansi">
+
+            <button id="simpan">Simpan</button>
+        </section>
+
+        <section class="panel">
+            <h3>Daftar tamu</h3>
+            <p class="kosong" id="kosong">Belum ada tamu yang tercatat.</p>
+            <ul class="daftar" id="daftar"></ul>
+        </section>
+    </main>
+
+    <footer class="kaki">&copy; 2026 Nova Amelia</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

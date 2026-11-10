@@ -1,0 +1,209 @@
+/* ===== 1. Warna =====
+   Variabel CSS: ubah warna cukup di sini saja. */
+:root {
+    --latar: #f6ecdc;        /* cream */
+    --kartu: #fffaf1;        /* cream terang */
+    --teks: #3a1a20;         /* maroon sangat tua */
+    --teks-pudar: #8a6a6f;
+    --aksen: #6d1a2b;        /* maroon */
+    --garis: #e6d5bb;
+}
+
+/* Saat body diberi class "gelap" oleh JavaScript, warna berganti */
+body.gelap {
+    --latar: #1c0f13;
+    --kartu: #2a171c;
+    --teks: #f3e6d3;
+    --teks-pudar: #b99ba0;
+    --aksen: #e09aab;
+    --garis: #43262d;
+}
+
+/* ===== 2. Dasar halaman ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Jost', Arial, sans-serif;
+    line-height: 1.7;
+    background: var(--latar);
+    color: var(--teks);
+    transition: background .3s, color .3s;
+}
+
+h1, h2, h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* ===== 3. Bagian atas ===== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 22px 24px;
+}
+
+.logo {
+    margin: 0;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--aksen);
+}
+
+#tombol-tema {
+    padding: 8px 20px;
+    border: 1.5px solid var(--aksen);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--aksen);
+    font-family: inherit;
+    font-size: .95rem;
+    cursor: pointer;
+    transition: background .2s, color .2s;
+}
+
+#tombol-tema:hover {
+    background: var(--aksen);
+    color: var(--kartu);
+}
+
+/* ===== 4. Isi halaman ===== */
+.isi {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+}
+
+.perkenalan {
+    padding: 56px 0 28px;
+    border-bottom: 1px solid var(--garis);
+    margin-bottom: 36px;
+}
+
+.perkenalan h1 {
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    line-height: 1.15;
+    font-weight: 700;
+    color: var(--aksen);
+    margin: 0 0 12px;
+}
+
+.perkenalan p {
+    color: var(--teks-pudar);
+    font-size: 1.15rem;
+    max-width: 560px;
+    margin: 0;
+}
+
+.judul-bagian {
+    font-size: 1.6rem;
+    margin: 0 0 14px;
+}
+
+/* ===== Halaman proyek: tautan kembali, panel, form, daftar ===== */
+.kembali {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--aksen);
+    text-decoration: none;
+    font-size: .95rem;
+}
+
+.kembali:hover { text-decoration: underline; }
+
+.label {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 1px 12px;
+    border: 1px solid var(--aksen);
+    border-radius: 999px;
+    color: var(--aksen);
+    font-size: .75rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.panel {
+    background: var(--kartu);
+    border: 1px solid var(--garis);
+    border-radius: 22px;
+    box-shadow: 0 6px 18px rgba(109, 26, 43, 0.08);
+    padding: 28px;
+    margin-bottom: 24px;
+}
+
+.panel h3 {
+    margin: 0 0 14px;
+    color: var(--aksen);
+}
+
+label { font-weight: 500; }
+
+input, select {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    margin: 6px 0 14px;
+    border: 1px solid var(--garis);
+    border-radius: 999px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: var(--latar);
+    color: var(--teks);
+}
+
+input:focus, select:focus {
+    outline: 2px solid var(--aksen);
+    outline-offset: 2px;
+}
+
+input.salah { border-color: #c0485a; }
+
+.pesan-error {
+    display: none;
+    margin: -8px 0 14px 16px;
+    color: #b3364a;
+    font-size: .9rem;
+}
+
+body.gelap .pesan-error { color: #f0a0ad; }
+
+#simpan {
+    padding: 11px 28px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--aksen);
+    color: var(--kartu);
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity .2s;
+}
+
+body.gelap #simpan { color: var(--latar); }
+#simpan:hover { opacity: .88; }
+
+ul.daftar { list-style: none; margin: 0; padding: 0; }
+
+ul.daftar li {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--garis);
+}
+
+ul.daftar li:last-child { border-bottom: 0; }
+ul.daftar li strong { color: var(--aksen); }
+
+.kosong { color: var(--teks-pudar); margin: 0; }
+
+/* ===== 7. Bagian bawah ===== */
+.kaki {
+    text-align: center;
+    padding: 24px;
+    color: var(--teks-pudar);
+    font-size: .9rem;
+    border-top: 1px solid var(--garis);
+}

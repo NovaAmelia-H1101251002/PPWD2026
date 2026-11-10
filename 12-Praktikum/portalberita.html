@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNews ID - Portal Berita Teknologi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #f6ecdc;
+            --cream-2: #efe0c9;
+            --paper: #fffaf1;
+            --ink: #3a1a20;
+            --muted: #8a6a6f;
+            --maroon: #6d1a2b;
+            --maroon-dark: #2a0d14;
+            --gold: #c9a46a;
+            --line: #e6d5bb;
+            /* class bg-dark Bootstrap tetap dipakai, warnanya dibuat maroon gelap */
+            --bs-dark-rgb: 42, 13, 20;
+        }
+        body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+        h1, h2, h3, h4, h5, h6, .navbar-brand { font-family: 'Playfair Display', Georgia, serif; }
+        a { text-decoration: none; }
+
+        /* ---- Navbar ---- */
+        .navbar-brand { font-size: 1.5rem; letter-spacing: .3px; }
+        .navbar-brand em { color: var(--gold); font-weight: 500; }
+        .navbar .nav-link { font-size: .95rem; }
+        .navbar .nav-link.active, .navbar .nav-link:hover { color: var(--gold); }
+        .form-cari .form-control { border-radius: 999px 0 0 999px; background: #3a1a20; border: 1px solid #5a2a33; color: var(--cream); }
+        .form-cari .form-control::placeholder { color: #b99ba0; }
+        .form-cari .form-control:focus { background: #3a1a20; color: var(--cream); border-color: var(--gold); box-shadow: none; }
+        .form-cari .btn { border-radius: 0 999px 999px 0; background: var(--gold); border-color: var(--gold); color: var(--maroon-dark); font-weight: 500; }
+        .form-cari .btn:hover { background: var(--cream); border-color: var(--cream); }
+
+        /* ---- Hero ---- */
+        .hero {
+            background: linear-gradient(135deg, #2a0d14 0%, #4a1220 55%, #7d2236 100%);
+            color: var(--cream);
+            padding: 76px 0;
+            border-radius: 0 0 40px 40px;
+        }
+        .hero h1 { font-weight: 700; line-height: 1.2; max-width: 820px; }
+        .hero .lead { color: #d9c3bd; max-width: 700px; font-weight: 300; }
+        .tag { display: inline-block; border: 1px solid var(--gold); color: var(--gold); border-radius: 999px; padding: 2px 14px; font-size: .85rem; }
+        .btn-krem { background: var(--cream); color: var(--maroon); border-radius: 999px; padding: 10px 28px; font-weight: 500; }
+        .btn-krem:hover { background: var(--gold); color: var(--maroon-dark); }
+
+        /* ---- Judul bagian ---- */
+        .judul-bagian { font-weight: 700; display: flex; align-items: center; gap: 14px; margin-bottom: 1.5rem; }
+        .judul-bagian::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+        /* ---- Thumbnail (gradasi, tanpa gambar luar) ---- */
+        .thumb { height: 230px; border-radius: 18px; background: linear-gradient(135deg, #4a1220, #c9a46a); }
+        .thumb-sm { height: 130px; }
+        .t-a { background: linear-gradient(135deg, #6d1a2b, #c9a46a); }
+        .t-b { background: linear-gradient(135deg, #2a0d14, #8a3a4a); }
+        .t-c { background: linear-gradient(135deg, #c9a46a, #6d1a2b); }
+        .t-d { background: linear-gradient(135deg, #7d2236, #efe0c9); }
+
+        /* ---- Kartu & artikel ---- */
+        .artikel, .news-card, .trending-box { background: var(--paper); border: 1px solid var(--line); border-radius: 24px; }
+        .artikel { padding: 1rem; margin-bottom: 1.5rem; }
+        .artikel h3 { font-weight: 700; }
+        .artikel h3 a, .news-card h3 a, .trending-item a { color: var(--ink); }
+        .artikel h3 a:hover, .news-card h3 a:hover, .trending-item a:hover { color: var(--maroon); }
+        .kategori { font-size: .8rem; color: var(--maroon); border: 1px solid var(--maroon); border-radius: 999px; padding: 1px 12px; display: inline-block; margin-bottom: .5rem; }
+        .meta { color: var(--muted); font-size: .88rem; }
+        .isi-ringkas { color: #6b4d52; }
+
+        .trending-box { padding: .5rem 1.25rem; }
+        .trending-item { border-bottom: 1px solid var(--line); padding: 1rem 0; display: flex; gap: .9rem; }
+        .trending-item:last-child { border-bottom: 0; }
+        .trending-no { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; line-height: 1; color: var(--gold); min-width: 34px; }
+        .trending-item a { font-weight: 500; }
+
+        .news-card { overflow: hidden; transition: transform .2s, border-color .2s; }
+        .news-card:hover { transform: translateY(-4px); border-color: var(--maroon); }
+        .news-card .card-body { padding: 1.1rem 1.2rem 1.3rem; }
+        .news-card h3 { font-size: 1.05rem; font-weight: 700; }
+
+        /* ---- Pencarian ---- */
+        .form-cari .form-control.is-invalid { border-color: #e0848f; background-image: none; }
+        #hasil-cari .alert { border-radius: 18px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); }
+        #hasil-cari .alert-tidak { border-color: #d9a0a8; background: #fbeeee; }
+        #hasil-cari .alert-error { border-color: #d9a0a8; background: #fbeeee; color: #7a1d2b; }
+        mark { background: #ecd9a8; color: var(--ink); padding: 0 2px; border-radius: 3px; }
+        .btn-reset { color: var(--maroon); border: 1px solid var(--maroon); border-radius: 999px; background: transparent; padding: 2px 16px; font-size: .9rem; }
+        .btn-reset:hover { background: var(--maroon); color: var(--cream); }
+
+        footer a { color: var(--gold); }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER / NAVBAR ===== -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">TechNews<em>ID</em></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuUtama" aria-label="Buka menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="menuUtama">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Gadget</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">AI</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Startup</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Keamanan</a></li>
+                </ul>
+                <!-- Form pencarian (dipakai oleh script di bawah) -->
+                <form class="d-flex form-cari" id="form-cari" role="search" novalidate>
+                    <input class="form-control form-control-sm" type="search" id="kata-kunci" placeholder="Cari berita..." aria-label="Cari berita" autocomplete="off">
+                    <button class="btn btn-sm" type="submit">Cari</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tempat pesan hasil pencarian / validasi -->
+    <div class="container mt-3" id="hasil-cari" aria-live="polite"></div>
+
+    <!-- ===== HEADLINE UTAMA (HERO) ===== -->
+    <header class="hero mb-5 item-berita" id="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <span class="tag mb-3">Headline</span>
+                    <h1 class="display-5 mb-3 mt-2">Kampus Indonesia Mulai Memakai AI untuk Membantu Mahasiswa Belajar Pemrograman</h1>
+                    <p class="lead mb-4">Sejumlah perguruan tinggi menguji asisten AI di kelas praktikum. Dosen menilai mahasiswa jadi lebih cepat memahami materi, tetapi tetap perlu belajar dasar-dasarnya.</p>
+                    <a href="#" class="btn btn-krem">Baca selengkapnya</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ===== BERITA UTAMA + SIDEBAR ===== -->
+        <div class="row g-4 mb-5">
+            <div class="col-12 col-lg-8 blok">
+                <h2 class="h3 judul-bagian">Berita Utama</h2>
+
+                <article class="artikel item-berita">
+                    <div class="thumb mb-3"></div>
+                    <span class="kategori">Gadget</span>
+                    <h3 class="h4"><a href="#">Ponsel Lipat Terbaru Resmi Masuk Indonesia, Ini Harga dan Spesifikasinya</a></h3>
+                    <p class="isi-ringkas mb-2">Ponsel lipat generasi terbaru hadir dengan baterai lebih besar dan engsel yang diklaim lebih awet. Penjualan dibuka bulan ini.</p>
+                    <small class="meta">27 Oktober 2026 &middot; 4 menit baca</small>
+                </article>
+
+                <article class="artikel item-berita">
+                    <span class="kategori">Startup</span>
+                    <h3 class="h4"><a href="#">Startup Edutech Lokal Dapat Pendanaan untuk Perluas Kelas Coding Daring</a></h3>
+                    <p class="isi-ringkas mb-2">Pendanaan akan dipakai untuk menambah kelas pemrograman dasar yang ditujukan bagi pelajar dan mahasiswa di luar Pulau Jawa.</p>
+                    <small class="meta">26 Oktober 2026 &middot; 3 menit baca</small>
+                </article>
+
+                <article class="artikel item-berita">
+                    <span class="kategori">Keamanan</span>
+                    <h3 class="h4"><a href="#">Serangan Phishing Meningkat, Ini Cara Melindungi Akun Media Sosial Anda</a></h3>
+                    <p class="isi-ringkas mb-2">Pakar keamanan menyarankan pengguna mengaktifkan verifikasi dua langkah dan tidak sembarangan membuka tautan dari pesan yang tidak dikenal.</p>
+                    <small class="meta">25 Oktober 2026 &middot; 5 menit baca</small>
+                </article>
+            </div>
+
+            <!-- Sidebar Trending -->
+            <div class="col-12 col-lg-4 blok">
+                <h2 class="h3 judul-bagian">Trending</h2>
+                <div class="trending-box">
+                    <div class="trending-item item-berita">
+                        <div class="trending-no">1</div>
+                        <div><a href="#">Cara Mengenali Email Phishing yang Makin Mirip Aslinya</a><br><small class="meta">Keamanan</small></div>
+                    </div>
+                    <div class="trending-item item-berita">
+                        <div class="trending-no">2</div>
+                        <div><a href="#">Bootstrap atau Tailwind: Mana yang Cocok untuk Pemula?</a><br><small class="meta">Web</small></div>
+                    </div>
+                    <div class="trending-item item-berita">
+                        <div class="trending-no">3</div>
+                        <div><a href="#">Laptop Mahasiswa Budget 8 Jutaan yang Layak Dibeli</a><br><small class="meta">Gadget</small></div>
+                    </div>
+                    <div class="trending-item item-berita">
+                        <div class="trending-no">4</div>
+                        <div><a href="#">5 Fitur Baru di Editor Kode yang Wajib Dicoba</a><br><small class="meta">Software</small></div>
+                    </div>
+                    <div class="trending-item item-berita">
+                        <div class="trending-no">5</div>
+                        <div><a href="#">Internet Satelit Mulai Menjangkau Daerah Terpencil</a><br><small class="meta">Jaringan</small></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== GRID BERITA TERBARU (4 KARTU) ===== -->
+        <div class="blok mb-5">
+            <h2 class="h3 judul-bagian">Berita Terbaru</h2>
+            <div class="row g-4">
+                <div class="col-12 col-md-6 col-lg-3 item-berita">
+                    <div class="card news-card h-100">
+                        <div class="thumb thumb-sm t-a"></div>
+                        <div class="card-body">
+                            <span class="kategori">AI</span>
+                            <h3><a href="#">Asisten AI Kini Bisa Menjelaskan Kode dalam Bahasa Indonesia</a></h3>
+                            <small class="meta">2 jam lalu</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 item-berita">
+                    <div class="card news-card h-100">
+                        <div class="thumb thumb-sm t-b"></div>
+                        <div class="card-body">
+                            <span class="kategori">Keamanan</span>
+                            <h3><a href="#">Tips Membuat Kata Sandi yang Kuat dan Mudah Diingat</a></h3>
+                            <small class="meta">4 jam lalu</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 item-berita">
+                    <div class="card news-card h-100">
+                        <div class="thumb thumb-sm t-c"></div>
+                        <div class="card-body">
+                            <span class="kategori">Gadget</span>
+                            <h3><a href="#">Smartwatch Baru Menawarkan Baterai Tahan Seminggu</a></h3>
+                            <small class="meta">6 jam lalu</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3 item-berita">
+                    <div class="card news-card h-100">
+                        <div class="thumb thumb-sm t-d"></div>
+                        <div class="card-body">
+                            <span class="kategori">Web</span>
+                            <h3><a href="#">Mengapa Desain Responsive Penting untuk Setiap Website</a></h3>
+                            <small class="meta">Kemarin</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-1 fs-5 fw-semibold" style="font-family:'Playfair Display',serif;">TechNews<em style="color:var(--gold)">ID</em></p>
+            <small class="text-white-50">&copy; 2026 TechNews ID. Dibuat untuk praktikum Pemrograman Web Dasar.</small>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ===== PENCARIAN BERITA + VALIDASI =====
+        const form = document.getElementById("form-cari");
+        const kotak = document.getElementById("kata-kunci");
+        const hasil = document.getElementById("hasil-cari");
+        const semuaBerita = document.querySelectorAll(".item-berita");
+        const semuaBlok = document.querySelectorAll(".blok");
+        const MIN_HURUF = 2;
+
+        // Simpan teks asli judul supaya bisa disorot (highlight) lalu dikembalikan
+        const judulAsli = new Map();
+        document.querySelectorAll(".item-berita a").forEach(a => judulAsli.set(a, a.textContent));
+
+        function escapeHtml(t) {
+            return t.replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+        }
+        function escapeRegex(t) { return t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+        function tampilPesan(jenis, html) {
+            hasil.innerHTML = '<div class="alert alert-' + jenis + ' d-flex flex-wrap justify-content-between align-items-center gap-2 mb-0" role="alert"><span>' + html + '</span><button type="button" class="btn-reset" id="btn-reset">Reset</button></div>';
+            document.getElementById("btn-reset").addEventListener("click", reset);
+        }
+
+        function reset() {
+            kotak.value = "";
+            kotak.classList.remove("is-invalid");
+            hasil.innerHTML = "";
+            semuaBerita.forEach(el => el.classList.remove("d-none"));
+            semuaBlok.forEach(el => el.classList.remove("d-none"));
+            judulAsli.forEach((teks, a) => { a.textContent = teks; });
+        }
+
+        // Validasi input: kosong / terlalu pendek / mengandung simbol aneh
+        function validasi(kata) {
+            if (kata === "") return "Kata kunci tidak boleh kosong. Ketik sesuatu, misalnya “AI”.";
+            if (kata.length < MIN_HURUF) return "Kata kunci minimal " + MIN_HURUF + " karakter.";
+            if (!/[\p{L}\p{N}]/u.test(kata)) return "Gunakan huruf atau angka untuk mencari berita.";
+            return "";
+        }
+
+        function cari() {
+            const kata = kotak.value.trim();
+            const pesanError = validasi(kata);
+
+            if (pesanError) {
+                kotak.classList.add("is-invalid");
+                tampilPesan("error", "⚠️ " + pesanError);
+                return;
+            }
+            kotak.classList.remove("is-invalid");
+
+            // Cocokkan kata kunci di AWAL kata (supaya "ai" tidak ikut cocok dengan "mulai")
+            const reCocok = new RegExp("(^|[^\\p{L}\\p{N}])" + escapeRegex(kata), "iu");
+            const reSorot = new RegExp("(^|[^\\p{L}\\p{N}])(" + escapeRegex(escapeHtml(kata)) + ")", "giu");
+            let jumlah = 0;
+
+            semuaBerita.forEach(el => {
+                const cocok = reCocok.test(el.textContent);
+                el.classList.toggle("d-none", !cocok);
+                if (cocok) jumlah++;
+            });
+
+            // Sorot kata kunci di judul yang cocok
+            judulAsli.forEach((teks, a) => {
+                const item = a.closest(".item-berita");
+                a.innerHTML = item.classList.contains("d-none") ? escapeHtml(teks) : escapeHtml(teks).replace(reSorot, "$1<mark>$2</mark>");
+            });
+
+            // Sembunyikan bagian yang tidak punya hasil
+            semuaBlok.forEach(blok => {
+                const ada = blok.querySelector(".item-berita:not(.d-none)");
+                blok.classList.toggle("d-none", !ada);
+            });
+
+            if (jumlah === 0) {
+                tampilPesan("tidak", "Berita dengan kata kunci <strong>“" + escapeHtml(kata) + "”</strong> tidak ditemukan. Coba kata lain seperti “AI”, “gadget”, atau “keamanan”.");
+            } else {
+                tampilPesan("sukses", "Menampilkan <strong>" + jumlah + "</strong> berita untuk <strong>“" + escapeHtml(kata) + "”</strong>.");
+            }
+        }
+
+        // Cari saat tombol Cari / Enter ditekan
+        form.addEventListener("submit", function (e) { e.preventDefault(); cari(); });
+
+        // Cari otomatis saat mengetik (setelah minimal 2 karakter); kosongkan = kembali normal
+        kotak.addEventListener("input", function () {
+            const kata = kotak.value.trim();
+            if (kata === "") { reset(); }
+            else if (kata.length >= MIN_HURUF) { cari(); }
+            else { kotak.classList.remove("is-invalid"); }
+        });
+    </script>
+</body>
+</html>

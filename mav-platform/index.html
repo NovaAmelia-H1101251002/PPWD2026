@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MAV Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== Bagian atas (sama dengan portal) ===== -->
+    <header class="header">
+        <h2 class="logo">Nova Amelia</h2>
+        <button id="tombol-tema">Mode gelap</button>
+    </header>
+
+    <main class="isi">
+        <a class="kembali" href="../index.html">&larr; Kembali ke portofolio</a>
+
+        <section class="perkenalan">
+            <span class="label">Proyek</span>
+            <h1>MAV Platform</h1>
+            <p>Menu berbeda untuk setiap peran pengguna.</p>
+        </section>
+
+        <section class="panel">
+            <h3>Pilih peran</h3>
+            <label for="peran">Masuk sebagai</label>
+            <select id="peran">
+                <option value="admin">Admin</option>
+                <option value="staf">Staf</option>
+                <option value="tamu">Tamu</option>
+            </select>
+        </section>
+
+        <section class="panel">
+            <h3>Menu yang tersedia</h3>
+            <ul class="daftar" id="menu"></ul>
+        </section>
+    </main>
+
+    <footer class="kaki">&copy; 2026 Nova Amelia</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
