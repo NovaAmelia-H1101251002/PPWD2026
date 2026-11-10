@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Mahasiswa - Nova Amellia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== LATIHAN 2.1: warna primary Bootstrap jadi maroon ===== */
+        :root {
+            --bs-primary: #6d1a2b;
+            --bs-primary-rgb: 109, 26, 43;
+            --bs-body-font-family: 'Jost', sans-serif;
+            --cream: #faf3e8;
+            --cream-2: #f1e4d0;
+            --surface: #fffaf2;
+            --ink: #3b1a21;
+            --maroon: #6d1a2b;
+            --maroon-dark: #4a0f1c;
+        }
+        [data-bs-theme="dark"] {
+            --cream: #1e1014;
+            --cream-2: #2a171c;
+            --surface: #2f1b21;
+            --ink: #f3e6d3;
+            --bs-primary: #c45a74;
+            --bs-primary-rgb: 196, 90, 116;
+        }
+        body { background: var(--cream); color: var(--ink); scroll-behavior: smooth; }
+        h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
+        .text-muted { color: var(--ink) !important; opacity: .7; }
+
+        .btn-primary {
+            --bs-btn-bg: var(--maroon);
+            --bs-btn-border-color: var(--maroon);
+            --bs-btn-hover-bg: var(--maroon-dark);
+            --bs-btn-hover-border-color: var(--maroon-dark);
+            --bs-btn-color: #faf3e8;
+            --bs-btn-hover-color: #faf3e8;
+            border-radius: 50px;
+        }
+        .btn-cream { background: #faf3e8; color: #6d1a2b; border-radius: 50px; border: none; }
+        .btn-cream:hover { background: #f1e4d0; color: #4a0f1c; }
+        .btn-outline-cream { border: 1px solid #faf3e8; color: #faf3e8; border-radius: 50px; }
+        .btn-outline-cream:hover { background: #faf3e8; color: #6d1a2b; }
+
+        .navbar { background: var(--maroon-dark); }
+        .navbar .nav-link, .navbar-brand { color: #faf3e8; }
+        .navbar .nav-link:hover { color: #e8c9a0; }
+
+        .hero-section {
+            background: linear-gradient(135deg, #4a0f1c 0%, #7d2236 100%);
+            color: #faf3e8;
+            padding: 80px 0;
+        }
+        .profile-img {
+            width: 180px; height: 180px; border-radius: 50%;
+            border: 5px solid #faf3e8; object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,.3);
+        }
+        /* ===== LATIHAN 2.2: card lebih bulat ===== */
+        .skill-card, .edu-card {
+            background: var(--surface); color: var(--ink);
+            border: 1px solid var(--cream-2);
+            border-radius: 28px;
+            transition: transform .3s, box-shadow .3s;
+        }
+        .skill-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(109,26,43,.18); }
+        .skill-card .icon { font-size: 2.8rem; color: var(--bs-primary); margin-bottom: 12px; }
+        .progress { background: var(--cream-2); }
+        .progress-bar { background: var(--bs-primary); }
+        .section-alt { background: var(--cream-2); }
+        .form-control { background: var(--surface); color: var(--ink); border-color: var(--cream-2); border-radius: 14px; }
+        .footer { background: var(--maroon-dark); color: #faf3e8; padding: 25px 0; }
+
+        /* ===== LATIHAN 2.3: animasi fade-in saat scroll ===== */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.show { opacity: 1; transform: none; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="#"><i class="fas fa-user-graduate me-2"></i>Nova Amelia</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    <li class="nav-item"><a class="nav-link active" href="#beranda">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skill">Skill</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#pendidikan">Pendidikan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
+                    <!-- LATIHAN 2.4: tombol dark mode -->
+                    <li class="nav-item ms-lg-2">
+                        <button id="themeToggle" class="btn btn-sm btn-outline-cream" type="button"><i class="fas fa-moon"></i></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero-section" id="beranda">
+        <div class="container text-center">
+            <img src="aku.jpg.jpeg" alt="Foto Profile" class="profile-img mb-4">
+            <h1 class="display-4 fw-bold mb-3">Nova Amelia</h1>
+            <p class="lead mb-3"><i class="fas fa-graduation-cap me-2"></i>Mahasiswi Sistem Informasi</p>
+            <p class="mb-4">"Suka belajar web dan ingin membuat tampilan yang rapi dan responsive."</p>
+            <div class="d-flex gap-2 justify-content-center flex-wrap">
+                <a href="#skill" class="btn btn-cream btn-lg px-4"><i class="fas fa-code me-2"></i>Lihat Skill</a>
+                <a href="#kontak" class="btn btn-outline-cream btn-lg px-4"><i class="fas fa-envelope me-2"></i>Hubungi Saya</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION SKILL ===== -->
+    <section class="py-5" id="skill">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <h2 class="fw-bold">Skill Saya</h2>
+                <p class="text-muted">Teknologi yang saya kuasai</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-12 col-md-6 col-lg-4 reveal">
+                    <div class="card skill-card h-100 text-center p-4"><div class="card-body">
+                        <div class="icon"><i class="fab fa-html5"></i></div>
+                        <h5 class="card-title fw-bold">HTML &amp; CSS</h5>
+                        <p class="card-text text-muted">Membuat struktur dan tampilan halaman web</p>
+                        <div class="progress" style="height: 8px;"><div class="progress-bar" style="width: 85%;"></div></div>
+                        <small class="text-muted mt-2 d-block">85%</small>
+                    </div></div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 reveal">
+                    <div class="card skill-card h-100 text-center p-4"><div class="card-body">
+                        <div class="icon"><i class="fab fa-bootstrap"></i></div>
+                        <h5 class="card-title fw-bold">Bootstrap</h5>
+                        <p class="card-text text-muted">Membuat layout responsive dengan grid dan komponen</p>
+                        <div class="progress" style="height: 8px;"><div class="progress-bar" style="width: 75%;"></div></div>
+                        <small class="text-muted mt-2 d-block">75%</small>
+                    </div></div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4 reveal">
+                    <div class="card skill-card h-100 text-center p-4"><div class="card-body">
+                        <div class="icon"><i class="fab fa-js"></i></div>
+                        <h5 class="card-title fw-bold">JavaScript</h5>
+                        <p class="card-text text-muted">Membuat halaman web lebih interaktif</p>
+                        <div class="progress" style="height: 8px;"><div class="progress-bar" style="width: 65%;"></div></div>
+                        <small class="text-muted mt-2 d-block">65%</small>
+                    </div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION PENDIDIKAN (BARU) ===== -->
+    <section class="py-5 section-alt" id="pendidikan">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <h2 class="fw-bold">Pendidikan</h2>
+                <p class="text-muted">Riwayat pendidikan saya</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8">
+                    <div class="card edu-card mb-3 reveal"><div class="card-body px-4">
+                        <h5 class="fw-bold mb-1">S1 Sistem Informasi</h5>
+                        <p class="text-muted mb-0">Universitas Tanjungpura &middot; 2025 - Sekarang</p>
+                    </div></div>
+                    <div class="card edu-card reveal"><div class="card-body px-4">
+                        <h5 class="fw-bold mb-1">SMA</h5>
+                        <p class="text-muted mb-0">SMA Negeri 7 Pontianak &middot; 2022 - 2025</p>
+                    </div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION KONTAK ===== -->
+    <section class="py-5" id="kontak">
+        <div class="container">
+            <div class="text-center mb-5 reveal">
+                <h2 class="fw-bold">Hubungi Saya</h2>
+                <p class="text-muted">Kirim pesan lewat form di bawah ini</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6 reveal">
+                    <form>
+                        <div class="mb-3">
+                            <label for="nama" class="form-label fw-semibold">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="nama" placeholder="Masukkan nama Anda" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="email@contoh.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="pesan" class="form-label fw-semibold">Pesan</label>
+                            <textarea class="form-control" id="pesan" rows="4" placeholder="Tulis pesan Anda" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100"><i class="fas fa-paper-plane me-2"></i>Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer text-center">
+        <div class="container">
+            <p class="mb-2">&copy; 2026 Nova Amelia. All rights reserved.</p>
+            <div class="d-flex gap-3 justify-content-center">
+                <a href="#" class="text-white"><i class="fab fa-github fa-lg"></i></a>
+                <a href="#" class="text-white"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="#" class="text-white"><i class="fab fa-instagram fa-lg"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Fade-in saat scroll
+        const obs = new IntersectionObserver((items) => {
+            items.forEach(i => { if (i.isIntersecting) { i.target.classList.add('show'); obs.unobserve(i.target); } });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        // Dark mode toggle
+        const html = document.documentElement;
+        const btn = document.getElementById('themeToggle');
+        btn.addEventListener('click', () => {
+            const dark = html.getAttribute('data-bs-theme') === 'dark';
+            html.setAttribute('data-bs-theme', dark ? 'light' : 'dark');
+            btn.innerHTML = dark ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+        });
+    </script>
+</body>
+</html>
